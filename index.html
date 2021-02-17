@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="#">
+    <meta charset="UTF-8" />
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="css/flappy.css" />
+  </head>
+
+  <body class="conteudo">
+    <h1>Flappy Bird</h1>
+    <div id="soundOptions">
+      <p>Sound</p>
+      <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+    </div>
+    <div id="flappy-container">
+      <div id="bird">
+        <img src="./assets/imgs/passaro.png" alt="bird" />
+      </div>
+      <div class="pipes">
+        <div class="pipe">
+          <div class="pipe-top"></div>
+          <div class="pipe-inlet"></div>
+          <div class="pipe-middle"></div>
+          <div class="pipe-inlet"></div>
+          <div class="pipe-bottom"></div>
+        </div>
+      </div>
+      <p id="score">0</p>
+    </div>
+    <audio src="./assets/audios/sfx_die.wav" id="sfx-die"></audio>
+    <audio src="./assets/audios/sfx_hit.wav" id="sfx-hit"></audio>
+    <audio src="./assets/audios/sfx_point.wav" id="sfx-point"></audio>
+    <audio src="./assets/audios/sfx_swooshing.wav" id="sfx-swooshing"></audio>
+    <audio src="./assets/audios/sfx_wing.wav" id="sfx-wing"></audio>
+    <script src="index.js"></script>
+  </body>
+</html>
