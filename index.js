@@ -141,11 +141,16 @@
   /* container */
   (() => {
     const container = document.getElementById('flappy-container');
-    container.addEventListener('click', (event) => {
+    const reviveCallback = (event) => {
+      if (event.type === 'click') {
       event.preventDefault();
+      }
 
       if (game.pause) document.dispatchEvent(game.events.start);
-    });
+    }
+
+    container.addEventListener('click', reviveCallback);
+    document.addEventListener('keydown', reviveCallback);
   })();
 
   /* pipes */
