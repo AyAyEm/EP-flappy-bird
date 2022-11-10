@@ -80,23 +80,6 @@
     return { then: animation.then.bind(animation), stop };
   }
 
-  function recursiveAnimation(animationArgs) {
-    const animation = startAnimation(...animationArgs);
-    let toStop = false;
-    animation.then(() => {
-      if (toStop) return;
-      recursiveAnimation(animationArgs)
-    });
-
-    const stop = () => {
-      toStop = true;
-      animation.stop();
-    }
-
-    return { then: animation.then.bind(animation), stop };
-
-  }
-
   const game = {
     pause: true,
     events: {
