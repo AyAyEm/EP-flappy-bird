@@ -80,23 +80,6 @@
     return { then: animation.then.bind(animation), stop };
   }
 
-  function recursiveAnimation(animationArgs) {
-    const animation = startAnimation(...animationArgs);
-    let toStop = false;
-    animation.then(() => {
-      if (toStop) return;
-      recursiveAnimation(animationArgs)
-    });
-
-    const stop = () => {
-      toStop = true;
-      animation.stop();
-    }
-
-    return { then: animation.then.bind(animation), stop };
-
-  }
-
   const game = {
     pause: true,
     events: {
@@ -158,11 +141,16 @@
   /* container */
   (() => {
     const container = document.getElementById('flappy-container');
-    container.addEventListener('click', (event) => {
-      event.preventDefault();
+    const reviveCallback = (event) => {
+      if (event.type === 'click') {
+        event.preventDefault();
+      }
 
       if (game.pause) document.dispatchEvent(game.events.start);
-    });
+    }
+
+    container.addEventListener('click', reviveCallback);
+    document.addEventListener('keydown', reviveCallback);
   })();
 
   /* pipes */
@@ -312,10 +300,12 @@
     });
 
     let lastUp;
-    document.addEventListener('keydown', (event) => {
+    const inputCallback = (event) => {
+      console.log(event);
+
       if (game.pause) return;
 
-      if (event.key === 'w') {
+      if (event.key === 'w' || event.type === 'click') {
         if (goingDown) {
           lastDown.stop();
         }
@@ -341,7 +331,9 @@
 
         sounds.play('sfx-wing');
       }
-    });
+    }
+    document.addEventListener('keydown', inputCallback);
+    document.addEventListener('click', inputCallback);
 
     return bird;
   })();
