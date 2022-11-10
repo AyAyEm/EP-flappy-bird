@@ -143,7 +143,7 @@
     const container = document.getElementById('flappy-container');
     const reviveCallback = (event) => {
       if (event.type === 'click') {
-      event.preventDefault();
+        event.preventDefault();
       }
 
       if (game.pause) document.dispatchEvent(game.events.start);
@@ -300,10 +300,12 @@
     });
 
     let lastUp;
-    document.addEventListener('keydown', (event) => {
+    const inputCallback = (event) => {
+      console.log(event);
+
       if (game.pause) return;
 
-      if (event.key === 'w') {
+      if (event.key === 'w' || event.type === 'click') {
         if (goingDown) {
           lastDown.stop();
         }
@@ -329,7 +331,9 @@
 
         sounds.play('sfx-wing');
       }
-    });
+    }
+    document.addEventListener('keydown', inputCallback);
+    document.addEventListener('click', inputCallback);
 
     return bird;
   })();
